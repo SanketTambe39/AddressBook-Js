@@ -175,6 +175,7 @@ try {
     findPerson("Akshay", "Sonar");
     editPerson("Akshay", "Sonar", "address", "D G P Nagar");
     deletePerson("Satej", "Pusadkar");
+    console.log("Number of People in the address book is " + personArray.reduce(count => count + 1, 0));
 
 } catch (Exception) {
     console.log(Exception)
