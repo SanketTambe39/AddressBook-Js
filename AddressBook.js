@@ -6,17 +6,9 @@ const STATE_REGEX = /^[A-Z][a-z]{3,}$/;
 const ZIP_REGEX = /^[0-9]{6}$/;
 const PHONE_NUMBER_REGEX = /^[9][1][ ][6-9][0-9]{9}$/;
 const EMAIL_REGEX = /^([A-Za-z0-9]+[-._+]?[a-z0-9]+)+@[a-z0-9-]+.[a-z]{2,3}.[a-z]{2,3}$/;
+let personArray = new Array();
 
-class Person {
-
-    firstName;
-    lastName;
-    address;
-    city;
-    state;
-    zip;
-    phoneNumber;
-    email;
+class Person {  
 
     constructor(firstName, lastName, address, city, state, zip, phoneNumber, email) {
         this.firstName = firstName;
@@ -29,43 +21,90 @@ class Person {
         this.email = email;
     }
 
+    set firstName(firstName) {
+        if (FIRST_NAME_REGEX.test(firstName))
+            this.personFirstName = firstName;
+        else throw "Invalid first name ";
+    }
+    get firstName() {
+        return this.personFirstName;
+    }
+    set lastName(lastName) {
+        if (LAST_NAME_REGEX.test(lastName))
+            this.personLastName = lastName;
+        else throw "Invalid last name";
+    }
+
+    get lastName() {
+        return this.personLastName;
+    }
+
+    set address(address) {
+        if (ADDRESS_REGEX.test(address))
+            this.personAddress = address;
+        else throw "Invalid address";
+    }
+
+    get address() {
+        return this.personAddress;
+    }
+    set city(city) {
+        if (CITY_REGEX.test(city))
+            this.personCity = city;
+        else throw "Invalid city name";
+    }
+    get city() {
+        return this.personCity;
+    }
+    set state(state) {
+        if (STATE_REGEX.test(state))
+            this.personState = state;
+        else throw "Invalid state";
+    }
+    get state() {
+        return this.personState;
+    }
+    set zip(zip) {
+        if (ZIP_REGEX.test(zip))
+            this.personZip = zip;
+        else throw "Invalid zip code";
+    }
+    get zip() {
+        return this.personZip;
+    }
+    set phoneNumber(phoneNumber) {
+        if (PHONE_NUMBER_REGEX.test(phoneNumber))
+            this.personPhoneNumber = phoneNumber;
+        else throw "Invalid phone number";
+    }
+    get phoneNumber() {
+        return this.personPhoneNumber;
+    }
+    set email(email) {
+        if (EMAIL_REGEX.test(email))
+            this.personEmail = email;
+        else throw "Invalid email";
+    }
+    get email() {
+        return this.personEmail;
+    }
+
     toString() {
         return "First name: " + this.firstName + "\nLast name: " + this.lastName + "\nAddress: " + this.address + "\nCity: " + this.city + "\nState: " + this.state + "\nZip: " + this.zip + "\nPhone number: " + this.phoneNumber + "\nEmail: " + this.email;
     }
-
 }
 
-person = new Person("Sanket", "Tambe", "Nashik", "Nashik", "Maharashtra", 422008, 8554038332, "Sanket@gmail.com");
-console.log(person.toString());
+try {
+    let person1 = new Person("Sanket", "Tambe", "Nashik", "Nashik", "Maharashtra", 422008, "91 8540355241", "Sanket@gmail.com");
+    let person2 = new Person("Akshay", "Sonar", "Nashik", "Nashik", "Maharashtra", 422004, "91 8540355241", "Akshay@gmail.com");
+    let person3 = new Person("Satej", "Pusadkar", "Nashik", "Nashik", "Maharashtra", 422001, "91 8540355241", "Satej@gmail.com");
 
-let firstName = "Sanket", lastName = "Tambe", address = "Nashik", city = "Nashik", state = "Maharashtra", zip = 422008, phoneNumber = "91 8554038332", email = "Sanket@gmail.com";
+    personArray.push(person1);
+    personArray.push(person2);
+    personArray.push(person3);
 
-if (FIRST_NAME_REGEX.test(firstName) && LAST_NAME_REGEX.test(lastName) && ADDRESS_REGEX.test(address) && CITY_REGEX.test(city) && STATE_REGEX.test(state) && ZIP_REGEX.test(zip) && PHONE_NUMBER_REGEX.test(phoneNumber) && EMAIL_REGEX.test(email)) {
-    person = new Person(firstName, lastName, address, city, state, zip, phoneNumber, email);
-    console.log(person.toString());
-} else {
-    if (!FIRST_NAME_REGEX.test(firstName)) {
-        throw "Invalid first name"
-    }
-    if (!LAST_NAME_REGEX.test(lastName)) {
-        throw "Invalid last name"
-    }
-    if (!ADDRESS_REGEX.test(address)) {
-        throw "Invalid address"
-    }
-    if (!CITY_REGEX.test(city)) {
-        throw "Invalid city"
-    }
-    if (!STATE_REGEX.test(state)) {
-        throw "Invalid state"
-    }
-    if (!ZIP_REGEX.test(zip)) {
-        throw "Invalid zip"
-    }
-    if (!PHONE_NUMBER_REGEX.test(phoneNumber)) {
-        throw "Invalid phone number"
-    }
-    if (!EMAIL_REGEX.test(email)) {
-        throw "Invalid email"
-    }
+} catch (Exception) {
+    console.log(Exception)
 }
+if (personArray.length > 0)
+    console.log(personArray);
