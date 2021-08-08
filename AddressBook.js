@@ -101,10 +101,14 @@ function findPerson(firstName, lastName) {
         if (person.firstName == firstName && person.lastName == lastName)
             personFound = person;
     });
-    console.log("Person Found: " + personFound.firstName + " " + personFound.lastName);
+    if (personFound != null)
+        console.log("Person Found: " + personFound.firstName + " " + personFound.lastName);
+    else
+        throw "Contact does not exist"
 }
 
 function editPerson(firstName, lastName, field, newValue) {
+    findPerson(firstName, lastName);
     let person = personFound.firstName;
     switch (field) {
         case "address":
@@ -146,14 +150,11 @@ function editPerson(firstName, lastName, field, newValue) {
         default:
             throw "Invalid choice";
     }
-    personArray.forEach(person => {
-        if (person.firstName == firstName && person.lastName == lastName)
-            person.address = newValue;
-    });
     console.log(personArray);
 }
 
 function deletePerson(firstName, lastName) {
+    findPerson(firstName, lastName);
     personArray.forEach(person => {
         if (person.firstName == firstName && person.lastName == lastName)
             personArray.pop();
@@ -162,13 +163,26 @@ function deletePerson(firstName, lastName) {
 }
 
 try {
+    function addPerson(person) {
+        if (personArray == null) {
+            personArray.push(person);
+        }
+        personArray.forEach(eachPerson => {
+            if (eachPerson.firstName == person.firstName && eachPerson.lastName == person.lastName)
+                personFound = eachPerson;
+        });
+        if (personFound == null)
+            personArray.push(person);
+        else
+            throw "Person exists";
+    }
     let person1 = new Person("Sanket", "Tambe", "Nashik", "Nashik", "Maharashtra", 422008, "91 8540355241", "Sanket@gmail.com");
     let person2 = new Person("Akshay", "Sonar", "Nashik", "Nashik", "Maharashtra", 422004, "91 8540355241", "Akshay@gmail.com");
     let person3 = new Person("Satej", "Pusadkar", "Nashik", "Nashik", "Maharashtra", 422001, "91 8540355241", "Satej@gmail.com");
 
-    personArray.push(person1);
-    personArray.push(person2);
-    personArray.push(person3);
+    addPerson(person1);
+    addPerson(person2);
+    addPerson(person3);
 
     console.log(personArray);
 
