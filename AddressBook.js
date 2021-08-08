@@ -1,8 +1,8 @@
 const FIRST_NAME_REGEX = /^[A-Z][a-z]{2,}$/;
 const LAST_NAME_REGEX = /^[A-Z][a-z]{2,}$/;
-const ADDRESS_REGEX = /^[A-Z][a-z]{3,}$/;
-const CITY_REGEX = /^[A-Z][a-z]{3,}$/;
-const STATE_REGEX = /^[A-Z][a-z]{3,}$/;
+const ADDRESS_REGEX = /[a-z]{4,}/;
+const CITY_REGEX = /[a-z]{4,}/;
+const STATE_REGEX = /[a-z]{4,}/;
 const ZIP_REGEX = /^[0-9]{6}$/;
 const PHONE_NUMBER_REGEX = /^[9][1][ ][6-9][0-9]{9}$/;
 const EMAIL_REGEX = /^([A-Za-z0-9]+[-._+]?[a-z0-9]+)+@[a-z0-9-]+.[a-z]{2,3}.[a-z]{2,3}$/;
@@ -100,35 +100,65 @@ function findPerson(firstName, lastName) {
     personArray.forEach(person => {
         if (person.firstName == firstName && person.lastName == lastName)
             personFound = person;
-        console.log("Person Found: " + personFound.firstName + " " + personFound.lastName);
     });
+    console.log("Person Found: " + personFound.firstName + " " + personFound.lastName);
 }
 
 function editPerson(firstName, lastName, field, newValue) {
     let person = personFound.firstName;
     switch (field) {
-        case "address": let address = newValue;
-            person.address = address;
-            personArray.
-                break;
-        case "city": let city = newValue;
-            person.city = city;
+        case "address":
+            personArray.forEach(person => {
+                if (person.firstName == firstName && person.lastName == lastName)
+                    person.address = newValue;
+            });
             break;
-        case "state": let state = newValue;
-            person.state = state;
+        case "city":
+            personArray.forEach(person => {
+                if (person.firstName == firstName && person.lastName == lastName)
+                    person.city = newValue;
+            });
             break;
-        case "zip": let zip = newValue;
-            person.zip = zip;
+        case "state":
+            personArray.forEach(person => {
+                if (person.firstName == firstName && person.lastName == lastName)
+                    person.state = newValue;
+            });
             break;
-        case "phone number": let phoneNumber = newValue;
-            contact.phoneNumber = phoneNumber;
+        case "zip":
+            personArray.forEach(person => {
+                if (person.firstName == firstName && person.lastName == lastName)
+                    person.zip = newValue;
+            });
             break;
-        case "email": let email = newValue;
-            contact.email = email;
+        case "phone number":
+            personArray.forEach(person => {
+                if (person.firstName == firstName && person.lastName == lastName)
+                    person.phoneNumber = newValue;
+            });
+            break;
+        case "email":
+            personArray.forEach(person => {
+                if (person.firstName == firstName && person.lastName == lastName)
+                    person.email = newValue;
+            });
             break;
         default:
             throw "Invalid choice";
     }
+    personArray.forEach(person => {
+        if (person.firstName == firstName && person.lastName == lastName)
+            person.address = newValue;
+    });
+    console.log(personArray);
+}
+
+function deletePerson(firstName, lastName) {
+    personArray.forEach(person => {
+        if (person.firstName == firstName && person.lastName == lastName)
+            personArray.pop();
+    });
+    console.log(personArray);
 }
 
 try {
@@ -144,6 +174,7 @@ try {
 
     findPerson("Akshay", "Sonar");
     editPerson("Akshay", "Sonar", "address", "D G P Nagar");
+    deletePerson("Satej", "Pusadkar");
 
 } catch (Exception) {
     console.log(Exception)
