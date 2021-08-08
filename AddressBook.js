@@ -110,72 +110,67 @@ function findPerson(firstName, lastName) {
 function editPerson(firstName, lastName, field, newValue) {
     findPerson(firstName, lastName);
     let person = personFound.firstName;
-    switch (field) {
-        case "address":
-            personArray.forEach(person => {
-                if (person.firstName == firstName && person.lastName == lastName)
-                    person.address = newValue;
-            });
-            break;
-        case "city":
-            personArray.forEach(person => {
-                if (person.firstName == firstName && person.lastName == lastName)
-                    person.city = newValue;
-            });
-            break;
-        case "state":
-            personArray.forEach(person => {
-                if (person.firstName == firstName && person.lastName == lastName)
-                    person.state = newValue;
-            });
-            break;
-        case "zip":
-            personArray.forEach(person => {
-                if (person.firstName == firstName && person.lastName == lastName)
-                    person.zip = newValue;
-            });
-            break;
-        case "phone number":
-            personArray.forEach(person => {
-                if (person.firstName == firstName && person.lastName == lastName)
-                    person.phoneNumber = newValue;
-            });
-            break;
-        case "email":
-            personArray.forEach(person => {
-                if (person.firstName == firstName && person.lastName == lastName)
-                    person.email = newValue;
-            });
-            break;
-        default:
-            throw "Invalid choice";
-    }
-    console.log(personArray);
-}
-
-function deletePerson(firstName, lastName) {
-    findPerson(firstName, lastName);
     personArray.forEach(person => {
         if (person.firstName == firstName && person.lastName == lastName)
-            personArray.pop();
+        switch (field) {
+            case "address":
+                person.address = newValue;
+                break;
+            case "city":
+                person.city = newValue;
+                break;
+            case "state":
+                person.state = newValue;
+                break;
+            case "zip":
+                person.zip = newValue;
+                break;
+            case "phone number":
+                person.phoneNumber = newValue;
+                break;
+            case "email":
+                person.email = newValue;
+                break;
+            default:
+                throw "Invalid choice";
+        }
     });
     console.log(personArray);
 }
 
-try {
-    function addPerson(person) {
-        if (personArray == null) {
-            personArray.push(person);
-        }
-        personArray.forEach(eachPerson => {
-            if (eachPerson.firstName == person.firstName && eachPerson.lastName == person.lastName)
-                personFound = eachPerson;
-        });
-        if (personFound == null)
-            personArray.push(person);
-        else
-            throw "Person exists";
+function deletePerson(firstName, lastName) {
+    let index = personArray.findIndex(person => person.firstName == firstName && person.lastName == lastName);
+    if (index != -1) {
+        personArray.splice(index, 1);
+        console.log(personArray);
+    } else
+        throw "Person does not exist in address book"
+}
+
+function addPerson(person) {
+    if (personArray == null) {
+        personArray.push(person);
     }
+    personArray.forEach(eachPerson => {
+        if (eachPerson.firstName == person.firstName && eachPerson.lastName == person.lastName)
+            personFound = eachPerson;
+    });
+    if (personFound == null)
+        personArray.push(person);
+    else
+        throw "Person exists";
+}
+
+function findPersonCityOrState(locationField, location) {
+    switch (locationField) {
+        case "city":
+            console.log(personArray.filter(person => person.city == location));
+        case "state":
+            console.log(personArray.filter(person => person.state == location));
+    }
+}
+
+try {
     let person1 = new Person("Sanket", "Tambe", "Nashik", "Nashik", "Maharashtra", 422008, "91 8540355241", "Sanket@gmail.com");
     let person2 = new Person("Akshay", "Sonar", "Nashik", "Nashik", "Maharashtra", 422004, "91 8540355241", "Akshay@gmail.com");
     let person3 = new Person("Satej", "Pusadkar", "Nashik", "Nashik", "Maharashtra", 422001, "91 8540355241", "Satej@gmail.com");
@@ -190,7 +185,7 @@ try {
     editPerson("Akshay", "Sonar", "address", "D G P Nagar");
     deletePerson("Satej", "Pusadkar");
     console.log("Number of People in the address book is " + personArray.reduce(count => count + 1, 0));
-
+    findPersonCityOrState("city", "Nashik");
 } catch (Exception) {
     console.log(Exception)
 }
