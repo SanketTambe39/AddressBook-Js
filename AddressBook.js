@@ -189,6 +189,9 @@ try {
     console.log("Number of People in the address book is " + personArray.reduce(count => count + 1, 0));
     findPersonCityOrState("city", "Nashik");
     console.log("Sorted address book by first name:\n" + personArray.sort());
+    console.log("Sort by city: " + personArray.sort((contact1, contact2) => contact1.city.localeCompare(contact2.city)));
+    console.log("Sort by state: " + personArray.sort((contact1, contact2) => contact1.state.localeCompare(contact2.state)));
+    console.log("Sort by zip: " + personArray.sort((contact1, contact2) => contact1.zip - (contact2.zip)));
 } catch (Exception) {
     console.log(Exception)
 }
